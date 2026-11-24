@@ -31,7 +31,7 @@ function Shot([string]$name, [double]$seconds, [hashtable]$vars) {
   $g.Dispose()
   $bitmap.Save((Join-Path $OutDir "$name.png"), [System.Drawing.Imaging.ImageFormat]::Png)
   $bitmap.Dispose()
-  if ($process.HasExited) { Write-Host "$name: process exited early with code $($process.ExitCode)"; $script:failed = $true }
+  if ($process.HasExited) { Write-Host "${name}: process exited early with code $($process.ExitCode)"; $script:failed = $true }
   else { Stop-Process -Id $process.Id -Force }
   Start-Sleep -Seconds 1
 }
