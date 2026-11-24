@@ -153,13 +153,13 @@ public sealed class CommonsClient(CommonsAuth? auth, string api = "https://commo
             mainsnak = new { snaktype = "value", property = "P180", datavalue = new { type = "wikibase-entityid", value = new Dictionary<string, object> { ["entity-type"] = "item", ["numeric-id"] = long.Parse(q.AsSpan(1)), ["id"] = q } } },
         }).ToList();
         if (claims.Count == 0) return;
-        var d = await Post(new() { ["action"] = "wbeditentity", ["id"] = $"M{pageId}", ["data"] = JsonSerializer.Serialize(new { claims }), ["token"] = _csrf ?? "", ["summary"] = "Görünen kişiler eklendi" }, ct);
+        var d = await Post(new() { ["action"] = "wbeditentity", ["id"] = $"M{pageId}", ["data"] = JsonSerializer.Serialize(new { claims }), ["token"] = _csrf ?? "", ["summary"] = "Added depicted people" }, ct);
         if (d["error"]?["info"]?.GetValue<string>() is { } err) throw new ApiException(err);
     }
 
     public async Task CreateCategory(string name, string text, CancellationToken ct = default)
     {
-        var d = await Post(new() { ["action"] = "edit", ["title"] = $"Category:{name}", ["text"] = text, ["createonly"] = "1", ["summary"] = "Maç kategorisi oluşturuldu", ["token"] = _csrf ?? "" }, ct);
+        var d = await Post(new() { ["action"] = "edit", ["title"] = $"Category:{name}", ["text"] = text, ["createonly"] = "1", ["summary"] = "Created match category", ["token"] = _csrf ?? "" }, ct);
         if (d["error"] is { } e && e["code"]?.GetValue<string>() != "articleexists") throw new ApiException(e["info"]?.GetValue<string>() ?? "Kategori oluşturulamadı");
     }
 

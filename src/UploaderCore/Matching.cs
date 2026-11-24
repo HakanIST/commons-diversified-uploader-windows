@@ -117,7 +117,7 @@ public static partial class PageBuilder
     [GeneratedRegex(@"\s+")] private static partial Regex Spaces();
     [GeneratedRegex(@"^[\s\-–,]+|[\s\-–,]+$")] private static partial Regex Edges();
 
-    /// <summary>Şablon alanları: {oyuncular} {numaralar} {maç} {sıra}</summary>
+    /// <summary>Şablon alanları: {oyuncular} {numaralar} {maç} {sıra} ya da {players} {numbers} {match} {n}</summary>
     public static string Title(string template, IReadOnlyList<MatchedPlayer> players, string matchTitle, int seq, string ext)
     {
         var shown = players.Take(3).ToList();
@@ -125,7 +125,11 @@ public static partial class PageBuilder
             .Replace("{oyuncular}", string.Join(", ", shown.Select(p => p.Name)))
             .Replace("{numaralar}", string.Join(", ", shown.Select(p => p.Number)))
             .Replace("{maç}", matchTitle)
-            .Replace("{sıra}", seq.ToString(CultureInfo.InvariantCulture));
+            .Replace("{sıra}", seq.ToString(CultureInfo.InvariantCulture))
+            .Replace("{players}", string.Join(", ", shown.Select(p => p.Name)))
+            .Replace("{numbers}", string.Join(", ", shown.Select(p => p.Number)))
+            .Replace("{match}", matchTitle)
+            .Replace("{n}", seq.ToString(CultureInfo.InvariantCulture));
         t = Edges().Replace(Spaces().Replace(EmptyParens().Replace(BadTitleChars().Replace(t, " "), ""), " "), "");
         return $"{t}.{ext}";
     }

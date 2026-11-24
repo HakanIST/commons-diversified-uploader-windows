@@ -66,6 +66,7 @@ public class CoreTests
         const string template = "{oyuncular} {numaralar} - {maç} ({sıra})";
         Assert.Equal("Shavon Shields 31 - Beşiktaş vs Fenerbahçe 20261122 (7).jpg", PageBuilder.Title(template, players, "Beşiktaş vs Fenerbahçe 20261122", 7, "jpg"));
         Assert.Equal("A vs B (2).jpg", PageBuilder.Title(template, [], "A vs B", 2, "jpg"));
+        Assert.Equal("Shavon Shields 31 - A vs B (3).jpg", PageBuilder.Title("{players} {numbers} - {match} ({n})", players, "A vs B", 3, "jpg"));
         var w = PageBuilder.Wikitext(PageBuilder.Describe(players, "maç", "tr"), "", "2026-11-22 20:28:30", "[[User:X|X]]", "cc-by-sa-4.0", ["Shavon Shields", "Shavon Shields", "M"]);
         Assert.Contains("{{self|cc-by-sa-4.0}}", w);
         Assert.Contains("|description={{tr|1=Shavon Shields, maç}}", w);
