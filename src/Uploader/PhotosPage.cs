@@ -25,6 +25,7 @@ internal sealed partial class MainWindow
     private GridView? _grid;
     private StackPanel? _inspector;
     private Button? _analyzeButton;
+    private InfoBar? _issues;
     private string _filter = "all";
     private string? _selected;
     private string? _inspectorSignature;
@@ -35,6 +36,7 @@ internal sealed partial class MainWindow
         _photosPage.Children.Clear();
         _photosPage.RowDefinitions.Clear();
         _photosPage.ColumnDefinitions.Clear();
+        _photosPage.RowDefinitions.Add(new RowDefinition { Height = Auto });
         _photosPage.RowDefinitions.Add(new RowDefinition { Height = Auto });
         _photosPage.RowDefinitions.Add(new RowDefinition { Height = Star });
         _photosPage.ColumnDefinitions.Add(new ColumnDefinition { Width = Star });
@@ -52,6 +54,8 @@ internal sealed partial class MainWindow
             bar.Children.Add(toggle);
         }
         _photosPage.Children.Add(bar.At(0, 0, 2));
+        _issues = new InfoBar { Severity = InfoBarSeverity.Warning, IsClosable = false, IsOpen = false, Margin = new Thickness(16, 0, 16, 8) };
+        _photosPage.Children.Add(_issues.At(1, 0, 2));
 
         _grid = new GridView { SelectionMode = ListViewSelectionMode.Single, Padding = new Thickness(16, 4, 8, 16) };
         _grid.SelectionChanged += (_, _) =>
@@ -60,7 +64,7 @@ internal sealed partial class MainWindow
             _selected = name;
             BuildInspector(_session.Rows().FirstOrDefault(r => r.Name == name));
         };
-        _photosPage.Children.Add(_grid.At(1, 0));
+        _photosPage.Children.Add(_grid.At(2, 0));
 
         _inspector = new StackPanel { Spacing = 12, Margin = new Thickness(16) };
         _inspectorSignature = null;
@@ -69,7 +73,7 @@ internal sealed partial class MainWindow
             Child = new ScrollViewer { Content = _inspector, VerticalScrollBarVisibility = ScrollBarVisibility.Auto },
             Background = Brush("LayerFillColorDefaultBrush"), BorderBrush = Brush("CardStrokeColorDefaultBrush"), BorderThickness = new Thickness(1, 0, 0, 0),
         };
-        _photosPage.Children.Add(side.At(1, 1));
+        _photosPage.Children.Add(side.At(2, 1));
     }
 
     private PhotoCard MakeCard(PhotoRow row)
@@ -101,7 +105,7 @@ internal sealed partial class MainWindow
         foreach (var row in rows)
         {
             if (!_cards.TryGetValue(row.Name, out var card)) card = _cards[row.Name] = MakeCard(row);
-            card.Title.Text = row.Players.Count > 0 ? string.Join(", ", row.Players.Select(p => $"{p.Number} {p.Name}")) : T(row.Analyzed ? "Oyuncu bulunamadı" : "Analiz bekliyor");
+            card.Title.Text = Session.Summary(row);
             card.Root.Opacity = row.Include ? 1 : 0.45;
             card.Tag.Visibility = row.Uploaded != null || row.UploadError != null ? Visibility.Visible : Visibility.Collapsed;
             card.TagText.Text = T(row.Uploaded != null ? "Yüklendi" : "Hata");
@@ -126,6 +130,10 @@ internal sealed partial class MainWindow
             _filterButtons[key].Content = $"{T(title)} {rows.Count(filter)}";
             _filterButtons[key].IsChecked = key == _filter;
         }
+        // Kadro ya da forma rengi eksikse oyuncu bulunamaz; nedenini açıkça söyle.
+        var issues = _session.SetupIssues();
+        _issues!.Message = string.Join("\n", issues);
+        _issues.IsOpen = issues.Count > 0;
         var pending = rows.Count(r => !r.Analyzed);
         _analyzeButton!.Content = pending > 0 ? T("Analiz et ({0})", pending) : T("Tümü analiz edildi");
         _analyzeButton.IsEnabled = pending > 0 && !_busy;
