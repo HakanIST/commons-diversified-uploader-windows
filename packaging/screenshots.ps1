@@ -18,9 +18,10 @@ foreach ($i in 1..5) {
   $bitmap.Save((Join-Path $photos "SAMPLE$i.JPG"), [System.Drawing.Imaging.ImageFormat]::Jpeg)
   $bitmap.Dispose()
 }
+Copy-Item (Join-Path $PSScriptRoot 'sample-match.json') (Join-Path $photos 'commons-yukleme.json') -Force
 $exe = Join-Path $AppDir 'CommonsDiversifiedUploader.exe'
 function Shot([string]$name, [double]$seconds, [hashtable]$vars) {
-  foreach ($k in 'CDU_LANG', 'CDU_FOLDER', 'CDU_STEP') { Remove-Item "Env:$k" -ErrorAction SilentlyContinue }
+  foreach ($k in 'CDU_LANG', 'CDU_FOLDER', 'CDU_STEP', 'CDU_MAXIMIZE') { Remove-Item "Env:$k" -ErrorAction SilentlyContinue }
   foreach ($k in $vars.Keys) { Set-Item "Env:$k" $vars[$k] }
   $process = Start-Process $exe -PassThru
   Start-Sleep -Milliseconds ([int]($seconds * 1000))
@@ -40,7 +41,7 @@ Shot 'splash-tr' 2.6 @{ CDU_LANG = 'tr' }
 Shot 'welcome-en' 7 @{ CDU_LANG = 'en' }
 foreach ($lang in 'tr', 'en') {
   foreach ($step in 'match', 'roster', 'photos', 'upload') {
-    Shot "$step-$lang" 9 @{ CDU_LANG = $lang; CDU_FOLDER = $photos; CDU_STEP = $step }
+    Shot "$step-$lang" 9 @{ CDU_LANG = $lang; CDU_FOLDER = $photos; CDU_STEP = $step; CDU_MAXIMIZE = '1' }
   }
 }
 Get-ChildItem $OutDir

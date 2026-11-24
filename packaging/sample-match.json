@@ -1,0 +1,247 @@
+{
+ "match": {
+  "author": "",
+  "category": "",
+  "createCategory": false,
+  "extraCategories": [],
+  "license": "cc-by-sa-4.0",
+  "teams": [
+   {
+    "category": "Beşiktaş J.K. (basketball)",
+    "colors": [
+     "siyah"
+    ],
+    "key": "a",
+    "keywords": [
+     "Beşiktaş",
+     "fuzul"
+    ],
+    "label": "Beşiktaş",
+    "players": [
+     {
+      "category": "Devon Dotson",
+      "name": "Devon Dotson",
+      "number": "1",
+      "qid": "Q58091131"
+     },
+     {
+      "category": "DaQuan Jeffries",
+      "name": "DaQuan Jeffries",
+      "number": "2",
+      "qid": "Q70520489"
+     },
+     {
+      "category": "Lonnie Walker",
+      "name": "Lonnie Walker IV",
+      "number": "4",
+      "qid": "Q28811957"
+     },
+     {
+      "category": "David DeJulius",
+      "name": "David DeJulius",
+      "number": "5",
+      "qid": "Q100776967"
+     },
+     {
+      "category": "Berk Uğurlu",
+      "name": "Berk Uğurlu",
+      "number": "6",
+      "qid": "Q16239837"
+     },
+     {
+      "category": "Conor Morgan",
+      "name": "Conor Morgan",
+      "number": "9",
+      "qid": "Q55801617"
+     },
+     {
+      "category": "Yağız Aksu",
+      "name": "Yağız Aksu",
+      "number": "10",
+      "qid": "Q114572243"
+     },
+     {
+      "category": "Metecan Birsen",
+      "name": "Metecan Birsen",
+      "number": "11",
+      "qid": "Q6823383"
+     },
+     {
+      "category": "Scottie Wilbekin",
+      "name": "Scottie Wilbekin",
+      "number": "12",
+      "qid": "Q16235973"
+     },
+     {
+      "category": "Eugene Omoruyi",
+      "name": "Eugene Omoruyi",
+      "number": "20",
+      "qid": "Q100894129"
+     },
+     {
+      "category": "Anthony Brown (basketball)",
+      "name": "Anthony Brown",
+      "number": "21",
+      "qid": "Q20440606"
+     },
+     {
+      "category": "Jaylen Nowell",
+      "name": "Jaylen Nowell",
+      "number": "24",
+      "qid": "Q62031912"
+     },
+     {
+      "category": "Furkan Korkmaz",
+      "name": "Furkan Korkmaz",
+      "number": "30",
+      "qid": "Q19310495"
+     },
+     {
+      "category": "Wenyen Gabriel",
+      "name": "Wenyen Gabriel",
+      "number": "32",
+      "qid": "Q22957491"
+     },
+     {
+      "category": "Ante Žižić",
+      "name": "Ante Žižić",
+      "number": "41",
+      "qid": "Q19662887"
+     },
+     {
+      "category": "Mady Sissoko",
+      "name": "Mady Sissoko",
+      "number": "44",
+      "qid": "Q96426982"
+     }
+    ],
+    "qid": "Q854669",
+    "rosterSource": {
+     "lang": "tr",
+     "page": "Şablon:Beşiktaş (basketbol takımı) kadrosu"
+    }
+   },
+   {
+    "category": "Fenerbahçe SK (men's basketball)",
+    "colors": [
+     "sarı",
+     "lacivert"
+    ],
+    "key": "b",
+    "keywords": [
+     "Fenerbahçe",
+     "tarfin"
+    ],
+    "label": "Fenerbahçe",
+    "players": [
+     {
+      "category": "Shane Larkin",
+      "name": "Shane Larkin",
+      "number": "0",
+      "qid": "Q7488132"
+     },
+     {
+      "category": "Marcus Bingham Jr.",
+      "name": "Marcus Bingham Jr.",
+      "number": "1",
+      "qid": "Q100751660"
+     },
+     {
+      "category": "Wade Baldwin IV",
+      "name": "Wade Baldwin IV",
+      "number": "2",
+      "qid": "Q23007630"
+     },
+     {
+      "category": "Nicolò Melli",
+      "name": "Nicolò Melli",
+      "number": "4",
+      "qid": "Q1653956"
+     },
+     {
+      "category": "Sertaç Şanlı",
+      "name": "Sertaç Şanlı",
+      "number": "5",
+      "qid": "Q7455467"
+     },
+     {
+      "category": "Talen Horton-Tucker",
+      "name": "Talen Horton-Tucker",
+      "number": "8",
+      "qid": "Q60674264"
+     },
+     {
+      "category": "Johnny Juzang",
+      "name": "Johnny Juzang",
+      "number": "9",
+      "qid": "Q64009749"
+     },
+     {
+      "category": "Melih Mahmutoğlu",
+      "name": "Melih Mahmutoğlu",
+      "number": "10",
+      "qid": "Q6812386"
+     },
+     {
+      "category": "Trent Forrest",
+      "name": "Trent Forrest",
+      "number": "11",
+      "qid": "Q87451745"
+     },
+     {
+      "name": "Braxton Key",
+      "number": "12"
+     },
+     {
+      "name": "Kadir Yiğit Yancı",
+      "number": "14"
+     },
+     {
+      "category": "Onuralp Bitim",
+      "name": "Onuralp Bitim",
+      "number": "17",
+      "qid": "Q55281315"
+     },
+     {
+      "category": "Will Clyburn",
+      "name": "Will Clyburn",
+      "number": "21",
+      "qid": "Q16209606"
+     },
+     {
+      "category": "Chris Silva",
+      "name": "Chris Silva",
+      "number": "30",
+      "qid": "Q20880774"
+     },
+     {
+      "category": "Shavon Shields",
+      "name": "Shavon Shields",
+      "number": "31",
+      "qid": "Q16229279"
+     },
+     {
+      "category": "Ignas Sargiūnas",
+      "name": "Ignas Sargiūnas",
+      "number": "43",
+      "qid": "Q100919894"
+     },
+     {
+      "category": "Demircan Demir",
+      "name": "Demircan Demir",
+      "number": "77",
+      "qid": "Q135262068"
+     }
+    ],
+    "qid": "Q239447",
+    "rosterSource": {
+     "lang": "tr",
+     "page": "Şablon:Fenerbahçe (basketbol takımı) kadrosu"
+    }
+   }
+  ],
+  "title": "",
+  "titleTemplate": "{oyuncular} {numaralar} - {maç} ({sıra})"
+ },
+ "photos": {}
+}

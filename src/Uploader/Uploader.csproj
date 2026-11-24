@@ -46,7 +46,11 @@
     <Content Include="Assets\**" CopyToOutputDirectory="PreserveNewest" />
     <AppxManifest Include="Package.appxmanifest" Condition="'$(WindowsPackageType)' != 'None'" />
     <Manifest Include="$(ApplicationManifest)" />
-    <!-- ONNX Runtime paketi yerel kitaplıkları iki yoldan ekler; MSIX yükünde yinelenmesin diye bağlantılı kopyalar çıkarılır. -->
-    <None Remove="$(NuGetPackageRoot)microsoft.ml.onnxruntime\**\*.dll" />
   </ItemGroup>
+  <!-- ONNX Runtime'ın yerel kitaplıkları pakete iki yoldan girer (NuGet klasörü ve hazırlanan içerik); MSIX yinelemeyi kabul etmez. -->
+  <Target Name="DropDuplicateOnnxRuntime" BeforeTargets="_ComputeAppxPackagePayload">
+    <ItemGroup>
+      <PackagingOutputs Remove="@(PackagingOutputs)" Condition="'%(Extension)' == '.dll' And $([System.String]::Copy('%(FullPath)').ToLowerInvariant().Contains('microsoft.ml.onnxruntime')) And $([System.String]::Copy('%(FullPath)').Contains('runtimes'))" />
+    </ItemGroup>
+  </Target>
 </Project>

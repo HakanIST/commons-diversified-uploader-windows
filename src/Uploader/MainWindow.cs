@@ -38,6 +38,7 @@ internal sealed partial class MainWindow
         var scale = Math.Max(1, GetDpiForWindow(handle) / 96.0);
         _window.AppWindow.Resize(new Windows.Graphics.SizeInt32((int)(1280 * scale), (int)(860 * scale)));
         try { _window.AppWindow.SetIcon(Asset("icon.ico")); } catch (Exception) { }
+        if (Environment.GetEnvironmentVariable("CDU_MAXIMIZE") == "1" && _window.AppWindow.Presenter is Microsoft.UI.Windowing.OverlappedPresenter presenter) presenter.Maximize();
 
         // Başlık çubuğu: pencere sürüklenebilir alan
         var titleBar = HStack(10, new Image { Source = Picture(Asset("icon.png"), 40), Width = 18, Height = 18 }, Txt("Commons Diversified Uploader", "CaptionTextBlockStyle"));
