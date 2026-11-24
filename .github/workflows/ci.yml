@@ -2,16 +2,42 @@ name: CI
 on:
   push:
     branches: [main]
+    tags: ["v*"]
   pull_request:
 permissions:
   contents: read
 jobs:
-  test:
+  build:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 10.0.x
-      - run: dotnet build -c Release
-      - run: dotnet test -c Release --no-build
+      - run: dotnet test core -c Release
+      - name: Unpackaged build
+        run: dotnet publish src/Uploader -c Release -r win-x64 -p:Platform=x64 -p:WindowsPackageType=None -o build/app
+      - name: Screenshots
+        shell: pwsh
+        run: packaging/screenshots.ps1 build/app build/screenshots
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screenshots
+          path: build/screenshots
+      - name: Store packages
+        shell: pwsh
+        run: |
+          foreach ($arch in 'x64', 'arm64') {
+            dotnet publish src/Uploader -c Release -r "win-$arch" -p:Platform=$arch -p:GenerateAppxPackageOnBuild=true -p:AppxPackageDir="$PWD\build\msix\$arch\"
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+          New-Item -ItemType Directory -Force build/store | Out-Null
+          Get-ChildItem build/msix -Recurse -Filter *.msix | Copy-Item -Destination build/store
+          Get-ChildItem build/store
+      - uses: actions/upload-artifact@v4
+        with:
+          name: store-packages
+          path: build/store/*.msix

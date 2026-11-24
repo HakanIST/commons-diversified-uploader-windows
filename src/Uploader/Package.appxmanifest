@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
+  IgnorableNamespaces="uap rescap">
+  <!-- Kimlik değerleri Partner Center'daki ürün kaydından gelir (Store ID 9NDM48VFZTT1). -->
+  <Identity Name="HakanIST.CommonsDiversifiedUploader" Publisher="CN=B253EBC9-99D8-4E60-82FF-6E38FC5675E3" Version="1.0.0.0" />
+  <Properties>
+    <DisplayName>Commons Diversified Uploader</DisplayName>
+    <PublisherDisplayName>HakanIST</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.19041.0" MaxVersionTested="10.0.26100.0" />
+  </Dependencies>
+  <Resources>
+    <Resource Language="en-US" />
+    <Resource Language="tr-TR" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="$targetentrypoint$">
+      <uap:VisualElements
+        DisplayName="Commons Diversified Uploader"
+        Description="Upload your match photos to Wikimedia Commons"
+        BackgroundColor="transparent"
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
+      </uap:VisualElements>
+      <Extensions>
+        <!-- Commons oturum onayından sonra tarayıcının uygulamaya döndüğü adres şeması -->
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="tr.tall.commonsdiversifieduploader">
+            <uap:DisplayName>Commons Diversified Uploader</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+    <rescap:Capability Name="runFullTrust" />
+  </Capabilities>
+</Package>

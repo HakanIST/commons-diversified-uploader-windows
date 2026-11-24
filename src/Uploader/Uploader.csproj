@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
+    <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+    <RootNamespace>Uploader</RootNamespace>
+    <AssemblyName>CommonsDiversifiedUploader</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
+    <Platforms>x64;ARM64</Platforms>
+    <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <UseWinUI>true</UseWinUI>
+    <EnableMsixTooling>true</EnableMsixTooling>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <SelfContained>true</SelfContained>
+    <DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <Version>1.0.0</Version>
+    <GenerateAppInstallerFile>false</GenerateAppInstallerFile>
+    <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
+    <AppxBundle>Never</AppxBundle>
+    <AppxSymbolPackageEnabled>false</AppxSymbolPackageEnabled>
+  </PropertyGroup>
+  <!-- Yalnızca tür denetimi (Windows dışı makinede): XAML derleyicisi çalışmaz, App.xaml dışarıda kalır. -->
+  <PropertyGroup Condition="'$(TypeCheckOnly)' == 'true'">
+    <DefineConstants>$(DefineConstants);TYPE_CHECK_ONLY</DefineConstants>
+    <EnableMsixTooling>false</EnableMsixTooling>
+    <WindowsPackageType>None</WindowsPackageType>
+    <WindowsAppSDKSelfContained>false</WindowsAppSDKSelfContained>
+    <SelfContained>false</SelfContained>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(TypeCheckOnly)' == 'true'">
+    <ApplicationDefinition Remove="App.xaml" />
+    <Page Remove="**\*.xaml" />
+    <None Remove="App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.*" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.*" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="10.*" />
+    <ProjectReference Include="..\..\core\src\UploaderCore\UploaderCore.csproj" />
+    <Content Include="Assets\**" CopyToOutputDirectory="PreserveNewest" />
+    <AppxManifest Include="Package.appxmanifest" Condition="'$(WindowsPackageType)' != 'None'" />
+    <Manifest Include="$(ApplicationManifest)" />
+  </ItemGroup>
+</Project>
