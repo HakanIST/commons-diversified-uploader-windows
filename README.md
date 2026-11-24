@@ -32,7 +32,7 @@ dotnet test core
 # run without packaging
 dotnet run --project src/Uploader -r win-x64 -p:Platform=x64 -p:WindowsPackageType=None
 # MSIX package for the Microsoft Store (unsigned; the Store signs it)
-dotnet publish src/Uploader -c Release -r win-x64 -p:Platform=x64 -p:GenerateAppxPackageOnBuild=true
+dotnet build src/Uploader -c Release -r win-x64 -p:Platform=x64 -p:GenerateAppxPackageOnBuild=true
 ```
 
 The recognition model (about 1 GB) is downloaded from Hugging Face on first
