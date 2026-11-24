@@ -7,3 +7,5 @@ BundleArtifacts/
 Fixtures/
 *.pfx
 .DS_Store
+secrets.env
+*.env
