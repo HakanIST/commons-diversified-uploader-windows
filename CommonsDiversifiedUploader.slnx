@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/UploaderCli/UploaderCli.csproj" />
+    <Project Path="src/UploaderCore/UploaderCore.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/UploaderCore.Tests/UploaderCore.Tests.csproj" />
+  </Folder>
+</Solution>
