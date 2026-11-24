@@ -71,9 +71,18 @@ internal static class Ui
     /// <summary>Geniş ekranlarda içeriği ortalanmış, okunur genişlikte bir sütuna alır.</summary>
     public static ScrollViewer Page(FrameworkElement content, double maxWidth = 1100)
     {
-        content.MaxWidth = maxWidth;
-        content.Margin = new Thickness(24);
-        return new ScrollViewer { Content = content, VerticalScrollBarVisibility = ScrollBarVisibility.Auto, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled };
+        // Ortadaki sütun en çok maxWidth kadar genişler; artan alan iki yana eşit dağılır.
+        var frame = new Grid { Padding = new Thickness(24) };
+        frame.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+        frame.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1000, GridUnitType.Star), MaxWidth = maxWidth });
+        frame.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+        Grid.SetColumn(content, 1);
+        frame.Children.Add(content);
+        return new ScrollViewer
+        {
+            Content = frame, HorizontalScrollMode = ScrollMode.Disabled, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled,
+            VerticalScrollBarVisibility = ScrollBarVisibility.Auto, HorizontalContentAlignment = HorizontalAlignment.Stretch,
+        };
     }
 
     public static T At<T>(this T element, int row, int column, int columnSpan = 1) where T : FrameworkElement

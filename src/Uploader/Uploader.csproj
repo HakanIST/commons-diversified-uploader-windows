@@ -46,5 +46,7 @@
     <Content Include="Assets\**" CopyToOutputDirectory="PreserveNewest" />
     <AppxManifest Include="Package.appxmanifest" Condition="'$(WindowsPackageType)' != 'None'" />
     <Manifest Include="$(ApplicationManifest)" />
+    <!-- ONNX Runtime paketi yerel kitaplıkları iki yoldan ekler; MSIX yükünde yinelenmesin diye bağlantılı kopyalar çıkarılır. -->
+    <None Remove="$(NuGetPackageRoot)microsoft.ml.onnxruntime\**\*.dll" />
   </ItemGroup>
 </Project>
