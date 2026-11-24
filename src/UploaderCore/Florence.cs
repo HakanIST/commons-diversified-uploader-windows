@@ -27,12 +27,26 @@ public sealed class FlorenceOcr : IDisposable
     public FlorenceOcr(string modelDirectory)
     {
         string P(string f) => Path.Combine(modelDirectory, f.Replace('/', Path.DirectorySeparatorChar));
+        // Resmî derleme Microsoft'a kullanım telemetrisi gönderebilir; uygulama hiçbir veri göndermez.
+        DisableTelemetry();
         var options = new SessionOptions { GraphOptimizationLevel = GraphOptimizationLevel.ORT_ENABLE_ALL };
         _vision = new InferenceSession(P("onnx/vision_encoder.onnx"), options);
         _embed = new InferenceSession(P("onnx/embed_tokens.onnx"), options);
         _encoder = new InferenceSession(P("onnx/encoder_model.onnx"), options);
         _decoder = new InferenceSession(P("onnx/decoder_model_merged.onnx"), options);
         _tokenizer = new FlorenceTokenizer(P("tokenizer.json"));
+    }
+
+    [System.Runtime.InteropServices.DllImport("libc", EntryPoint = "setenv")]
+    private static extern int SetEnv(string name, string value, int overwrite);
+
+    /// <summary>Kitaplık ortam oluşturulurken telemetriyi başlatır; bu yüzden önce ortam değişkeniyle kapatılır.</summary>
+    private static void DisableTelemetry()
+    {
+        // .NET, Windows dışında yerel ortam değişkenlerini değiştirmez; orada setenv doğrudan çağrılır.
+        if (OperatingSystem.IsWindows()) Environment.SetEnvironmentVariable("ORT_DISABLE_TELEMETRY", "1");
+        else SetEnv("ORT_DISABLE_TELEMETRY", "1", 1);
+        OrtEnv.Instance().DisableTelemetryEvents();
     }
 
     public static bool IsInstalled(string directory) =>
